@@ -134,10 +134,11 @@ exports.testCmd = (rl, id) => {
                
                 if(quiz.answer.toLowerCase() === answer.trim().toLowerCase()){
                     log(`Su respuesta es:`);
-                    biglog('correcta', 'green');
+                    log(`Correcta`);
+
                 }else {
                     log(`Su respuesta es:`);
-                    biglog('incorrecta', 'red');
+                    log(`Incorrecta`);
                 }
                 rl.prompt();
             });
@@ -205,7 +206,7 @@ exports.playCmd = rl => {
 
 exports.creditsCmd = rl =>{
     log('Autores de la práctica:');
-    log('Irene Rodríguez Gómez', 'green');
+    log('Javier Guijarro Benitez', 'green');
     rl.prompt();
 };
 
