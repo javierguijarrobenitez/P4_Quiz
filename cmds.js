@@ -76,11 +76,10 @@ exports.showCmd = (rl,id) => {
         .then(id => models.quiz.findById(id))
         .then(quiz => {
             if(!quiz) {
-                throw new Error (`No existe un quiz asociado al id=${id}.`);
+                throw new Error(`No existe un quiz asociado al id=${id}.`);
             }
-            log(`[${colorize(quiz.id, 'magenta')}]:  ${quiz.question} ${colorize('=>' ,'magenta')}  ${quiz.answer}`);
+            log(` [${colorize(quiz.id, 'magenta')}]: ${quiz.question} ${colorize('=>', 'magenta')} ${quiz.answer}`);
         })
-
         .catch(error => {
             errorlog(error.message);
         })
@@ -89,30 +88,13 @@ exports.showCmd = (rl,id) => {
         });
 };
 
-
-/**
- * Esta funcion devuelve una promesa que cuando se cumple, proporciona el texto introducido
- * Entonces la llamada a then que hay que hacer la promesa devuelta sera:
- *            .then(answer => {...})
- *
- * También colorea en rojo el texto de la pregunta, elimina espacios al principio y
- *
- * @param rl Objeto readline usado para implementar el CLI.
- * @param text Pregunta que hay que hacerle al usuario.
- */
-
 const makeQuestion = (rl, text) => {
-
     return new Sequelize.Promise((resolve, reject) => {
         rl.question(colorize(text, 'red'), answer => {
             resolve(answer.trim());
         });
     });
-    };
-
-
-
-
+};
 
 
 
@@ -126,23 +108,22 @@ const makeQuestion = (rl, text) => {
  * @param rl Objeto readline usado para implementar el CLI.
  */
 exports.addCmd = rl =>{
-
     makeQuestion(rl, 'Introduzca una pregunta:')
         .then(q => {
-            return makeQuestion(rl, 'Itroduzca la respuesta ')
+            return makeQuestion(rl, 'Introduzca una respuesta')
                 .then(a => {
-                    return {question: q,answer: a};
+                    return {question: q, answer: a};
                 });
         })
         .then(quiz => {
             return models.quiz.create(quiz);
         })
-        .then(quiz => {
-            log(`${colorize(' Se ha añadido', 'magenta')}:  ${quiz.question} ${colorize('=>' ,'magenta')}  ${quiz.answer}`);
+        .then((quiz) => {
+            log(`${colorize('Se ha añadido', 'magenta')}: ${quiz.question} ${colorize('=>', 'magenta')} ${quiz.answer}`);
         })
         .catch(Sequelize.ValidationError, error => {
             errorlog('El quiz es erroneo:');
-            error.errors.forEach(({message})  => errorlog(message));
+            error.errors.forEach(({message}) => errorlog(message));
         })
         .catch(error => {
             errorlog(error.message);
@@ -150,10 +131,8 @@ exports.addCmd = rl =>{
         .then(() => {
             rl.prompt();
         });
-
-
-
 };
+
 
 /**
  * Borra un quiz del modelo
@@ -220,7 +199,6 @@ exports.editCmd = (rl, id) => {
  * @param id Clave del quiz a probar.
  */
 exports.testCmd = (rl, id) => {
-
     validateId(id)
         .then(id => models.quiz.findById(id))
         .then(quiz => {
@@ -241,7 +219,6 @@ exports.testCmd = (rl, id) => {
                     rl.prompt();
                 });
         });
-
 };
 
 /**
