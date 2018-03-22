@@ -254,32 +254,32 @@ exports.playCmd = rl => {
                     .then(answer => {
                         if (answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()) {
                             score++;
-                            console.log("Asombrosa respuesta");
+                            console.log("Respuesta correcta");
                             return playOne();
                         } else {
-                            console.log("muy muy mal");
+                            console.log("Respuesta incorrecta");
+                            console.log("Fin del examen. Aciertos:");
                         }
                     })
 
             })
-            }
-        models.quiz.findAll({raw:true})
-            .then (quizzes => {
-                toBePlayed = quizzes;
-            })
-            .then(() => {
-                return playOne();
+    }
+    models.quiz.findAll({raw:true})
+        .then (quizzes => {
+            toBePlayed = quizzes;
+        })
+        .then(() => {
+            return playOne();
 
-            })
-            .catch (e =>{
-                console.log("Error: " + e);
-            })
-            .then(() => {
-                console.log(score);
-                rl.prompt();
-            })
-            };
-
+        })
+        .catch (e =>{
+            console.log("Error: " + e);
+        })
+        .then(() => {
+            console.log(score);
+            rl.prompt();
+        })
+};
 
 /**
  * Muestra los nombres de los autores de la practica.
