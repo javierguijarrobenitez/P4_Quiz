@@ -268,14 +268,15 @@ exports.playCmd = (socket, rl) => {
         })
 };
 
+
 /**
  * Muestra los nombres de los autores de la practica.
  * @param rl Objeto readline usado para implementar el CLI.
  */
 
-exports.creditsCmd = (socket,rl) =>{
-    log(socket,'Autores de la práctica:');
-    log(socket,'Javier Guijarro Benitez', 'green');
+exports.creditsCmd = (socket, rl) =>{
+    log(socket, 'Autores de la práctica:');
+    log(socket, 'Javier Guijarro Benitez', 'green');
     rl.prompt();
 };
 
@@ -283,7 +284,7 @@ exports.creditsCmd = (socket,rl) =>{
  * Terminar el programa.
  * @param rl Objeto readline usado para implementar el CLI.
  */
-exports.quitCmd = (socket,rl) => {
+exports.quitCmd = (socket, rl) => {
     rl.close();
     socket.end();
-};//
+};
